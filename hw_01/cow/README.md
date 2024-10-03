@@ -17,5 +17,5 @@ Require googletest to be built
 To run: in build directory:
 
 ```
-./test/test_cow
+./tests/test_cow
 ```
