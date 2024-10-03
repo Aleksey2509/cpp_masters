@@ -40,7 +40,6 @@ TEST(CowString, ResizeTest)
     cow::cow_string str {"First"};
     std::string_view expected {"Firstbbbbb"};
     str.resize(10, 'b');
-    std::cout << str.size() << std::endl;
     auto&& [sv_it, cow_it] = std::mismatch(expected.begin(), expected.end(), str.begin());
     EXPECT_EQ((sv_it == expected.end()) && (cow_it == str.end()), true)
         << "Expected {" << expected << "} got {" << str << "}\n";
