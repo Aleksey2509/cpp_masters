@@ -1,12 +1,14 @@
 Task 1:
 
+```cpp
 template <class T1, class T2> struct Pair {
     template<class U1 = T1, class U2 = T2> Pair(U1&&, U2&&) {}
 };
 struct S { S() = default; }; struct E { explicit E() = default; };
 int f(Pair<E, E>) { return 1; }
 int f(Pair<S, S>) { return 2; }
-static_assert(f({{}, {}}) == 2, ""); 
+static_assert(f({{}, {}}) == 2, "");
+```
 
 1. foo(X{}) is a unqualified name by definition from 6.5.3 4): it is a name that does not immediately follow a nested-name-specifier or the . or -> in a
 class member access expression (7.6.1.5), possibly after a template keyword or ~. 
@@ -49,17 +51,16 @@ class member access expression (7.6.1.5), possibly after a template keyword or ~
 4. Now, the candidate is checked for being viable (12.2.3): the argument number is correct (one argument in call corresponds to one argument in definition). Now, an existence of implicit conversion sequence must be confirmed.
 
 5. In this case, there exists two implicit conversion sequences. Roughly speaking, the two are:
+
     a) X -> Bar -> Foo
+
     b) X -> Baz -> Foo
-   So, the candidate is viable.
+
+   So, the candidates are viable.
 
 6. From 12.2.4: the chains of implicit conversions must be established for both sequences to decide, which is best
 
-7. From 12.2.2.1: 2.: A member function with implicit object parameter is considered to have an extra first parameter, representing the object for which the member function is called. 4.: the type of the implicit object parameter is  “lvalue reference to cv X” for functions declared without a ref-qualifier, where the cv is the cv-qualification on the member function declaration. 
-
-  So, our operator Bar() and operator Baz() have the following signature in context of overload resolution:
-  operator Bar(X&)
-  operator Baz(const X&)
+7. From 12.2.2.1: 2.: A member function with implicit object parameter is considered to have an extra first parameter, representing the object for which the member function is called. 4.: the type of the implicit object parameter is  “lvalue reference to cv X” for functions declared without a ref-qualifier, where the cv is the cv-qualification on the member function declaration.So, our operator Bar() and operator Baz() have the following signature in context of overload resolution: operator Bar(X&) and operator Baz(const X&)
 
 8. Although X{} is a rvalue, from 12.2.2.1: 5: For implicit object member functions declared without a ref-qualifier , even if
 the implicit object parameter is not const-qualified, an rvalue can be bound to the parameter as long as in all
