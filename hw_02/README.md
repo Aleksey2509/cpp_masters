@@ -67,7 +67,9 @@ the implicit object parameter is not const-qualified, an rvalue can be bound to 
 other respects the argument can be converted to the type of the implicit object parameter.. And in note below: The fact that such an argument is an rvalue does not affect the ranking of implicit conversion sequences. So, this does not add anything into implicit conversion sequence
 
 9. With all that the implicit conversion sequences will be:
+
     Qualification conversion (X -> const X) -> user conversion (const X& -> Bar) -> binding rvalue to const lvalue reference -> derived-to-base conversion (const Bar& -> const Foo&)
+
     User conversion (X -> Bar) -> binding rvalue to const lvalue reference -> derived-to-base conversion (Bar -> Foo)
 
 10. From 3.3: User-defined conversion sequence U1 is a better conversion sequence than another user-defined conversion
