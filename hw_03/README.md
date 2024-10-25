@@ -29,4 +29,4 @@ return static_cast<S&&>(a);
 
 It was parameterized with T, which is const int &, so S will be const int &. So, the static cast will be done with type S&&, which after reference collapsing will be const int &. So, std::forward will return const int &
 
-Function g has two overloads: one, which accepts int& and int&&. The return value of std::forward is const int &, so it cannot be binded with int&&, because it is a lref, but it also cannot bind with int&, because it would lose constness. There is not a single viable candidate, so the overload resolution will fail
+Function g has two overloads: one, which accepts int& and int&&. The return value of std::forward is const int &, so it cannot be binded with int&&, because it is a lvalue reference, but it also cannot bind with int&, because it would lose constness. There is not a single viable candidate, so the overload resolution will fail
